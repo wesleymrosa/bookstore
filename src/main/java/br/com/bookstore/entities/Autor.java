@@ -3,6 +3,7 @@ package br.com.bookstore.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,6 +16,8 @@ public class Autor implements Serializable {
     private Long id;
     @Column(name = "nome")
     private String nome;
+    @OneToMany(mappedBy = "autor")
+    private List<Livro> livros;
 
     public Autor() {
     }
@@ -40,24 +43,24 @@ public class Autor implements Serializable {
         this.nome = nome;
     }
 
+    public List<Livro> getLivros() {
+        return livros;
+    }
+
+    public void setLivros(List<Livro> livros) {
+        this.livros = livros;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Autor autor = (Autor) o;
-        return Objects.equals(id, autor.id) && Objects.equals(nome, autor.nome);
+        return Objects.equals(id, autor.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nome);
-    }
-
-    @Override
-    public String toString() {
-        return "Autor{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                '}';
+        return Objects.hash(id);
     }
 }

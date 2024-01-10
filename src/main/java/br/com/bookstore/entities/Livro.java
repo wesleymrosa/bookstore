@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
-@Table (schema = "bookstore", name = "livro")
+@Table(schema = "bookstore", name = "livro")
 public class Livro implements Serializable {
     private static final Long serialVersionUID = 1L;
     @Id
@@ -15,6 +15,9 @@ public class Livro implements Serializable {
     private Long id;
     @Column(name = "nome")
     private String nome;
+    @ManyToOne
+    @JoinColumn(name = "autor_id")
+    private Autor autor;
 
     public Livro() {
     }

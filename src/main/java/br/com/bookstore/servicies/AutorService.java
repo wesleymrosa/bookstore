@@ -1,7 +1,7 @@
 package br.com.bookstore.servicies;
 
-import br.com.bookstore.entities.Livro;
-import br.com.bookstore.repository.LivroRepository;
+import br.com.bookstore.entities.Autor;
+import br.com.bookstore.repository.AutorRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,21 +12,21 @@ import java.util.Optional;
 @Service
 public class AutorService {
     @Autowired
-    private LivroRepository repository;
+    private AutorRepository repository;
 
-    public Livro create(Livro obj) {
+    public Autor create(Autor obj) {
 
         return repository.save(obj);
     }
 
-    public List<Livro> getAll() {
+    public List<Autor> getAll() {
 
         return repository.findAll();
     }
 
-    public Livro getById(Long id) {
-        Optional<Livro> obj = repository.findById(id);
-        return obj.get();
+    public Optional<Autor> getById(Long id) {
+
+        return  repository.findById(id);
     }
 
     @Transactional

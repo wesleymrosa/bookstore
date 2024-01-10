@@ -1,9 +1,8 @@
 package br.com.bookstore.controllers;
 
-import br.com.bookstore.dtos.LivroDTO;
-import br.com.bookstore.entities.Livro;
-import br.com.bookstore.repository.LivroRepository;
-import br.com.bookstore.servicies.LivroService;
+import br.com.bookstore.dtos.AutorDTO;
+import br.com.bookstore.entities.Autor;
+import br.com.bookstore.servicies.AutorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,12 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/livros")
-public class LivroController {
+@RequestMapping(value = "/autor")
+public class AutorController {
     @Autowired
-    private LivroService service;
+    private AutorService service;
+
     @PostMapping
-    public ResponseEntity<Livro> create(@RequestBody Livro obj) {
+    public ResponseEntity<Autor> create(@RequestBody Autor obj) {
         return ResponseEntity.status(HttpStatus.CREATED).body(service.create(obj));
     }
 
@@ -30,21 +30,21 @@ public class LivroController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> getById(@PathVariable Long id) {
-        Optional<Livro> obj = service.getById(id);
+        Optional<Autor> obj = service.getById(id);
         return ResponseEntity.ok().body(service.getById(id));
     }
 
     @GetMapping
-    public ResponseEntity<List<Livro>> getAll() {
+    public ResponseEntity<List<Autor>> getAll() {
         return ResponseEntity.ok().body(service.getAll());
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody LivroDTO livroDTO) {
-        Optional<Livro> obj = service.getById(id);
-        var livroNOVO = obj.get();
-            livroNOVO.setId(livroDTO.getId());
-            livroNOVO.setNome(livroDTO.getNome());
-        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(livroNOVO));
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody AutorDTO AutorDTO) {
+        Optional<Autor> obj = service.getById(id);
+        var AutorNOVO = obj.get();
+        AutorNOVO.setId(AutorDTO.getId());
+        AutorNOVO.setNome(AutorDTO.getNome());
+        return ResponseEntity.status(HttpStatus.CREATED).body(service.create(AutorNOVO));
     }
 }
